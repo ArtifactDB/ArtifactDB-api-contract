@@ -111,7 +111,7 @@ Gives the following 302 response (abbreviated):
 ### Route
 
 ```
-GET /project/{project}/permissions
+GET /projects/{project}/permissions
 ```
 
 `project` should be a project name, passed through the standard URL encoding.
@@ -149,7 +149,7 @@ Yields the following 200 response:
 ### Route
 
 ```
-GET /project/{project}/metadata
+GET /projects/{project}/metadata
 ```
 
 `project` should be a project name, passed through the standard URL encoding.
@@ -199,7 +199,7 @@ Yields the following 200 response (per-file details omitted for brevity):
 ### Route
 
 ```
-GET /project/{project}/version/{version}/metadata
+GET /projects/{project}/version/{version}/metadata
 ```
 
 `project` should be a project name, passed through the standard URL encoding.

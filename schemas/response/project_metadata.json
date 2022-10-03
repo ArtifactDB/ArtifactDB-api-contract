@@ -25,5 +25,10 @@
             "type": "string",
             "description": "Endpoint to use to obtain the next page of results. May be absent on the final page of results."
         }
-    }
+    },
+    "required": [
+        "results",
+        "count",
+        "total"
+    ]
 }
