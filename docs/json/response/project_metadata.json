@@ -129,6 +129,11 @@
             "type": "integer"
         }
     },
+    "required": [
+        "results",
+        "count",
+        "total"
+    ],
     "title": "Project metadata response",
     "type": "object"
 }
