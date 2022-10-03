@@ -1,6 +1,7 @@
 {
     "$id": "permissions.json",
     "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "JSON body of the response for the `/projects/{project}/permissions` endpoint.",
     "properties": {
         "owners": {
             "description": "Array of users who own the resource, i.e., can change permissions or create new versions.",
