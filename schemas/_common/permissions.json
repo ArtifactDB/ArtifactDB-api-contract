@@ -1,0 +1,40 @@
+{
+    "properties": {
+        "viewers": {
+            "type": "array",
+            "description": "Array of users who are allowed to view the resource.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "owners": {
+            "type": "array",
+            "description": "Array of users who own the resource, i.e., can change permissions or create new versions.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "read_access": {
+            "type": "string",
+            "description": "Type of read access.",
+            "enum": [ "none", "viewers", "public" ]
+        },
+        "write_access": {
+            "type": "string",
+            "description": "Type of write access.",
+            "enum": [ "none", "owners" ]
+        },
+        "scope": {
+            "type": "string",
+            "description": "Scope of the permissions",
+            "enum": [ "project", "version" ]
+        }
+    },
+    "required": [
+        "viewers",
+        "readers",
+        "read_access",
+        "write_access",
+        "scope"
+    ]
+}

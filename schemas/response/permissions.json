@@ -1,0 +1,7 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "permissions.json",
+    "type": "object",
+    "title": "Permissions response",
+    "allOf": [ { "$ref": "../_common/permissions.json" } ]
+}

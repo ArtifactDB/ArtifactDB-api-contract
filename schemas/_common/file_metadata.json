@@ -1,0 +1,61 @@
+{
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "description": "Schema for the file's metadata."
+        },
+        "path": {
+            "type": "string",
+            "description": "Relative path from the root of the project."
+        },
+        "_extra": {
+            "type": "object",
+            "description": "Extra information recorded by the ArtifactDB API.",
+            "properties": {
+                "$schema": {
+                    "type": "string",
+                    "description": "Schema for the file's metadata."
+                },
+                "id": {
+                    "type": "string",
+                    "description": "The full ArtifactDB identifier for this file."
+                },
+                "project_id": {
+                    "type": "string",
+                    "description": "The name of the project containing the file."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "The version of the project containing the file."
+                },
+                "meta_indexed": {
+                    "type": "string",
+                    "description": "Timestamp for successful indexing.",
+                    "format": "date-time"
+                },
+                "meta_uploaded": {
+                    "type": "string",
+                    "description": "Timestamp for completed upload.",
+                    "format": "date-time"
+                },
+                "permissions": {
+                    "type": "object",
+                    "allOf": [ { "$ref": "permissions.json" } ]
+                }
+            },
+            "required": [
+                "$schema",
+                "id",
+                "project_id",
+                "version",
+                "meta_indexed",
+                "meta_uploaded",
+                "permissions"
+            ]
+        }
+    },
+    "required": [
+        "path",
+        "_extra"
+    ]
+}
