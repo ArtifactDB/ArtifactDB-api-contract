@@ -1,0 +1,21 @@
+{
+    "$id": "error.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "properties": {
+        "reason": {
+            "description": "Reason for the error",
+            "type": "string"
+        },
+        "status": {
+            "const": "error",
+            "description": "Status of the response",
+            "type": "string"
+        }
+    },
+    "required": [
+        "status",
+        "reason"
+    ],
+    "title": "Error response",
+    "type": "object"
+}
