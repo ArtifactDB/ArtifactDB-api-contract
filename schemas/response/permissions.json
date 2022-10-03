@@ -3,5 +3,6 @@
     "$id": "permissions.json",
     "type": "object",
     "title": "Permissions response",
+    "description": "JSON body of the response for the `/projects/{project}/permissions` endpoint.",
     "allOf": [ { "$ref": "../_common/permissions.json" } ]
 }

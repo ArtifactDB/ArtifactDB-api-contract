@@ -3,5 +3,6 @@
     "$id": "file_metadata.json",
     "type": "object",
     "title": "File metadata response",
+    "description": "JSON body of the response for the `/files/{id}/metadata` endpoint.",
     "allOf": [ { "$ref": "../_common/file_metadata.json" } ]
 }

@@ -3,6 +3,7 @@
     "$id": "error.json",
     "type": "object",
     "title": "Error response",
+    "description": "JSON body of the error response.",
     "properties": {
         "status": {
             "type": "string",
