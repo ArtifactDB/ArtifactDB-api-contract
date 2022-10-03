@@ -143,3 +143,105 @@ Yields the following 200 response:
   "viewers": []
 }
 ```
+
+## Get project metadata
+
+### Route
+
+```
+GET /project/{project}/metadata
+```
+
+`project` should be a project name, passed through the standard URL encoding.
+
+### Response 
+
+On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/project_metadata.html).
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Example
+
+Requesting the project metadata for `test-zircon-upload` for the test API:
+
+```sh
+curl -L https://gypsum-test.aaron-lun.workers.dev/projects/test-zircon-upload/metadata
+```
+
+Yields the following 200 response (per-file details omitted for brevity):
+
+```json
+{
+  "results": [
+    {
+      "$schema": "generic_file/v1.json",
+      "path": "blah.txt",
+      "_extra": {}
+    },
+    {
+      "$schema": "generic_file/v1.json",
+      "path": "foo/bar.txt",
+      "_extra": {}
+    },
+    {
+      "$schema": "generic_file/v1.json",
+      "path": "whee.txt",
+      "_extra": {}
+    }
+  ],
+  "count": 12,
+  "total": 12
+}
+```
+
+## Get project version metadata
+
+### Route
+
+```
+GET /project/{project}/version/{version}/metadata
+```
+
+`project` should be a project name, passed through the standard URL encoding.
+
+`version` should be a project version, passed through the standard URL encoding.
+
+### Response 
+
+On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/project_metadata.html).
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Example
+
+Requesting the project metadata for `test-zircon-upload` for the test API:
+
+```sh
+curl -L https://gypsum-test.aaron-lun.workers.dev/projects/test-zircon-upload/version/base/metadata
+```
+
+Yields the following 200 response (per-file metadata omitted for brevity):
+
+```json
+{
+  "results": [
+    {
+      "$schema": "generic_file/v1.json",
+      "path": "blah.txt",
+      "_extra": {}
+    },
+    {
+      "$schema": "generic_file/v1.json",
+      "path": "foo/bar.txt",
+      "_extra": {}
+    },
+    {
+      "$schema": "generic_file/v1.json",
+      "path": "whee.txt",
+      "_extra": {}
+    }
+  ],
+  "count": 12,
+  "total": 12
+}
+```

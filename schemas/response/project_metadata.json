@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "project_metadata.json",
+    "type": "object",
+    "title": "Project metadata response",
+    "description": "JSON body of the response for the `/projects/{project}/metadata` and `/projects/{project}/version/{version}/metadata` endpoints.",
+    "properties": {
+        "results": {
+            "type": "array",
+            "description": "Metadata for each file in the project or a version thereof.",
+            "items": {
+                "type": "object",
+                "allOf": [ { "$ref": "../_common/file_metadata.json" } ]
+            }
+        },
+        "count": {
+            "type": "integer",
+            "description": "Number of objects in `results` returned in this response. This may be less than `total` if pagination is present."
+        },
+        "total": {
+            "type": "integer",
+            "description": "Total number of files in this project or its version."
+        },
+        "next": {
+            "type": "string",
+            "description": "Endpoint to use to obtain the next page of results. May be absent on the final page of results."
+        }
+    }
+}
