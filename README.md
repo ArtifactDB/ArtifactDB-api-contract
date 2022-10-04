@@ -159,7 +159,7 @@ GET /projects/{project}/metadata
 On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/project_metadata.html).
 
 The project version metadata is paginated, so a successful response may contain a [`Link` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) pointing to the next page.
-Specifically, the next page is obtained from the link where `rel="more"`. 
+Specifically, the next page is obtained from the link where `rel="more"` (this is the same as the `next` property).
 If no such header or link exists, it can be assumed that no further pages are available.
 
 On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
@@ -352,5 +352,48 @@ curl -L https://gypsum-test.aaron-lun.workers.dev/projects
     }
   ],
   "count": 2
+}
+```
+
+## Get version information
+
+### Route
+
+```
+GET /projects/{project}/version/{version}/info
+```
+
+`project` should be a project name, passed through the standard URL encoding.
+
+`version` should be a project version, passed through the standard URL encoding.
+
+### Response 
+
+On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/project_version_info.html).
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Example
+
+Requesting the project metadata for `test-zircon-upload` for the test API:
+
+```sh
+curl -L https://gypsum-test.aaron-lun.workers.dev/projects/test-zircon-upload/version/base/info
+```
+
+Yields the following 200 response:
+
+```json
+{
+  "status": "ok",
+  "permissions": {
+    "scope": "project",
+    "read_access": "public",
+    "write_access": "owners",
+    "owners": [
+      "ArtifactDB-bot"
+    ],
+    "viewers": []
+  }
 }
 ```

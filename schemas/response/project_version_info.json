@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "project_version_info.json",
+    "type": "object",
+    "title": "Project version information response",
+    "description": "JSON body of the response for the `GET /projects/{project}/version/{version}/info` endpoint.",
+    "properties": {
+        "status": {
+            "type": "string",
+            "description": "Status of the project version.",
+            "enum": [ "ok", "error" ]
+        },
+        "permissions": {
+            "type": "object",
+            "description": "Permissions for this project version.",
+            "allOf": [ { "$ref": "../_common/permissions.json" } ]
+        },
+        "anomalies": {
+            "type": "array",
+            "description": "Summary of anomalies when `status` is set to `\"error\"`.",
+            "items": {
+                "type": "string"
+            }
+        },
+        "actions": {
+            "type": "array",
+            "description": "Actions to perform to resolve the anomalies when `status` is set to `\"error\"`.",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "required": [
+        "status",
+        "permissions"
+    ]
+}
