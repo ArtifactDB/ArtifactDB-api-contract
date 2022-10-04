@@ -1,0 +1,96 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "upload_project.json",
+    "type": "object",
+    "title": "Upload project request",
+    "description": "JSON body of the request for the `POST /projects/{project}/version/{version}/upload` endpoint.",
+    "properties": {
+        "filenames": {
+            "type": "array",
+            "description": "Files to be uploaded to this version of the project.",
+            "items": {
+                "anyOf": [
+                    {
+                        "type": "string",
+                        "description": "Relative path to the file inside the project."
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "check": {
+                                "type": "string",
+                                "description": "Deduplication should be performed based on detection of an identical MD5 checksum in a previous version of the file.",
+                                "const": "md5"
+                            },
+                            "filename": {
+                                "type": "string",
+                                "description": "Relative path to the file inside the project."
+                            },
+                            "value": {
+                                "type": "object",
+                                "description": "Parameters for checking the MD5 checksum.",
+                                "properties": {
+                                    "field": {
+                                        "type": "string",
+                                        "description": "Field of the metadata that contains the MD5 checksum of the previous version of the file."
+                                    },
+                                    "md5sum": {
+                                        "type": "string",
+                                        "description": "MD5 checksum of the current version of the file to be uploaded."
+                                    }
+                                },
+                                "required": [
+                                    "md5sum",
+                                    "field"
+                                ]
+                            }
+                        },
+                        "required": [ "check", "filename", "value" ]
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "check": {
+                                "type": "string",
+                                "description": "Deduplication should be performed based on an explicit link to another ArtifactDB resource.",
+                                "const": "link"
+                            },
+                            "filename": {
+                                "type": "string",
+                                "description": "Relative path to the file inside the project."
+                            },
+                            "value": {
+                                "type": "object",
+                                "description": "Parameters for linking.",
+                                "properties": {
+                                    "artifactdb_id": {
+                                        "type": "string",
+                                        "description": "An ArtifactDB identifier to be linked from the file in `filename`."
+                                    }
+                                },
+                                "required": [
+                                    "md5sum",
+                                    "field"
+                                ]
+                            }
+                        },
+                        "required": [ "check", "filename", "value" ]
+                    }
+                ]
+            }
+        },
+        "expires_in": {
+            "type": "string",
+            "description": "When does this project version expire? The expiry time is computed as an interval from the indexing time. If omitted, it is expected that the project will not expire.",
+            "pattern": "^in [0-9]+ (hours|days|weeks|months|years)$"
+        },
+        "completed_by": {
+            "type": "string",
+            "description": "When is the project upload expected to finish? The completion time is computed as an interval from the time of the request. ArtifactDB backend implementations may use this to set a timeout on the upload.",
+            "pattern": "^in [0-9]+ (hours|days|weeks|months|years)$"
+        }
+    },
+    "required": [
+        "filenames"
+    ]
+}

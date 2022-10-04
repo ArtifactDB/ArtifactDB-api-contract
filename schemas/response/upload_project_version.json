@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "upload_project_version.json",
+    "type": "object",
+    "title": "Upload project version response",
+    "description": "JSON body of the response for the `POST /projects/{project}/version/{version}/upload` endpoint.",
+    "properties": {
+        "presigned_urls": {
+            "type": "object",
+            "description": "Property names are the relative paths of the files inside the project, while the values are the presigned URLs corresponding to those files.",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string",
+                    "description": "Presigned URL to use in a `PUT` request, to upload the file specified by the property name. No extra authorization headers should be attached to this request. The response of the `PUT` may be ignored."
+                }
+            }
+        },
+        "links": {
+            "type": "object",
+            "description": "Keys are the relative paths of the files inside the project, while the values are path components for parameterized links corresponding to those files.",
+            "patternProperties": {
+                "^.*$": {
+                    "type": "string",
+                    "description": "Path component containing the parameterized link, which should be appended onto the REST API URL. A `PUT` request should be performed on the resulting URL, without any body but with all required authorization headers. A successful request will instruct the backend to create a link from the file specified in the property name to another resource in the ArtifactDB store. The response of the `PUT` may be ignored."
+                }
+            }
+        },
+        "completion_url": {
+            "type": "string",
+            "description": "Path component for the completion endpoint, which should be appended onto the REST API URL. A `PUT` request should be performed on the resulting URL with all required authorization headers - see the documentation for the `PUT /projects{project}/version/{version}/complete` endpoint for required parameters in the body. A successful request will indicate to the backend that the upload of this project's version is complete, allowing downstream indexing tasks to start."
+        },
+        "abort_url": {
+            "type": "string",
+            "description": "Path component for the abort endpoint, which should be appended onto the REST API URL. A `PUT` request should be performed on the resulting URL, without any body but with all required authorization headers. A successful request should only be possible before upload completion, and will instruct the backend to delete all resources associated with this upload."
+        }
+    },
+    "required": [
+        "presigned_urls",
+        "links",
+        "completion_url",
+        "abort_url"
+    ]
+}
