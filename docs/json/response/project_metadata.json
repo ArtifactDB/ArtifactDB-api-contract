@@ -8,7 +8,7 @@
             "type": "integer"
         },
         "next": {
-            "description": "Endpoint to use to obtain the next page of results. May be absent on the final page of results.",
+            "description": "Endpoint to use to obtain the next page of results. Should be absent on the final page of results.",
             "type": "string"
         },
         "results": {

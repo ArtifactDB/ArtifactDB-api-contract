@@ -1,0 +1,21 @@
+{
+    "$id": "jobs.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "JSON body of the response for the `GET /jobs/{jobid}` endpoint.",
+    "properties": {
+        "status": {
+            "description": "State of the post-upload job.",
+            "enum": [
+                "SUCCESS",
+                "FAILURE",
+                "PENDING"
+            ],
+            "type": "string"
+        }
+    },
+    "required": [
+        "status"
+    ],
+    "title": "Job response",
+    "type": "object"
+}
