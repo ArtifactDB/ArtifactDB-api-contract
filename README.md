@@ -397,3 +397,153 @@ Yields the following 200 response:
   }
 }
 ```
+
+## Start version upload
+
+### Route
+
+```
+POST /projects/{project}/version/{version}/upload
+```
+
+`project` should be a project name, passed through the standard URL encoding.
+
+`version` should be a project version, passed through the standard URL encoding.
+
+### Request body
+
+The request body should be JSON-encoded and follow [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/request/upload_project_version.html).
+
+### Response 
+
+On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/upload_project_version.html).
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Examples
+
+We'll consider the following request body:
+
+```json
+{ 
+    "filenames": [ 
+        "foo.txt", 
+        { 
+            "check": "link", 
+            "filename": "blah.txt",
+            "value": { 
+                "artifactdb_id": "test-zircon-upload:blah.txt@base"
+            }
+        },
+        {
+            "check": "md5", 
+            "filename": "whee.txt",
+            "value": { 
+                "field": "md5sum",
+                "md5sum": "b7fdd99fac291c4bbf958d9aee731951"
+            }
+        }
+    ],
+    "expires_in": "in 1 days"
+}
+```
+
+Requesting an upload to `test_version` of the project `test-zircon-upload` in the test API:
+
+```sh
+body=$(cat request.json) # containing the request body above.
+curl -X POST https://gypsum-test.aaron-lun.workers.dev/projects/test-zircon-upload/version/test_version/upload \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ${GITHUB_PAT}" \
+    -d "${body}"
+```
+
+Yields the following 200 response:
+
+```json
+{
+    "presigned_urls": {
+        "foo.txt": "https://gypsum-test.bfb2e522e0b245720424784fcf7c04c0.r2.cloudflarestorage.com/test-zircon-upload/test_version/foo.txt..."
+    },
+    "links": {
+        "blah.txt": "/link/dGVzdC16aXJjb24tdXBsb2FkOmJsYWgudHh0QHRlc3RfdmVyc2lvbg==/to/dGVzdC16aXJjb24tdXBsb2FkOmJsYWgudHh0QGJhc2U=",
+        "whee.txt": "/link/dGVzdC16aXJjb24tdXBsb2FkOndoZWUudHh0QHRlc3RfdmVyc2lvbg==/to/dGVzdC16aXJjb24tdXBsb2FkOndoZWUudHh0QGJhc2U="
+    },
+    "completion_url": "/projects/test-zircon-upload/version/test_version/complete",
+    "abort_url": "/projects/test-zircon-upload/version/test_version/abort"
+}
+```
+
+## Complete version upload
+
+### Route
+
+```
+PUT /projects/{project}/version/{version}/complete
+```
+
+`project` should be a project name, passed through the standard URL encoding.
+
+`version` should be a project version, passed through the standard URL encoding.
+
+### Request body
+
+The request body should be JSON-encoded and follow [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/request/complete_project_version.html).
+
+### Response 
+
+On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/complete_project_version.html).
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Example
+
+Completing an upload to `test_version` of the project `test-zircon-upload` in the test API:
+
+```sh
+curl -X PUT https://gypsum-test.aaron-lun.workers.dev/projects/test-zircon-upload/version/test_version/complete \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ${GITHUB_PAT}" \
+    -d '{ "read_access": "public", "owners": [ "LTLA" ], "viewers": [ "ArtifactDB-bot" ] }'
+```
+
+Yields the following 200 response:
+
+```json
+{
+    "job_id": 196
+}
+```
+
+## Get post-upload job status
+
+### Route
+
+```
+GET /jobs/{jobid}
+```
+
+`jobid` should be an integer or URL-encoded string.
+
+### Response
+
+On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/jobs.html).
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Example
+
+Checking the status of a job:
+
+```sh
+curl -L https://gypsum-test.aaron-lun.workers.dev/jobs/196
+```
+
+Yields the following 200 response:
+
+```json
+{
+    "status":"SUCCESS",
+    "job_url":"https://github.com/ArtifactDB/gypsum-actions/issues/196"
+}
+```

@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "upload_project.json",
+    "type": "object",
+    "title": "Upload project request",
+    "description": "JSON body of the request for the `POST /projects/{project}/version/{version}/upload` endpoint.",
+    "allOf": [
+        { "$ref": "../_common/raw_permissions.json" }
+    ],
+    "properties": {
+        "read_access": {
+            "default": "public"
+        },
+        "write_access": {
+            "default": "owners"
+        },
+        "scope": {
+            "default": "project"
+        },
+        "viewers": {
+            "default": []
+        },
+        "owners": {
+            "default": []
+        }
+    }
+}

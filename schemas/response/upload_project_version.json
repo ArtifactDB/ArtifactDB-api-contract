@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "upload_project.json",
+    "$id": "upload_project_version.json",
     "type": "object",
-    "title": "Upload project response",
+    "title": "Upload project version response",
     "description": "JSON body of the response for the `POST /projects/{project}/version/{version}/upload` endpoint.",
     "properties": {
         "presigned_urls": {

@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "complete_project_version.json",
+    "type": "object",
+    "title": "Complete project version response",
+    "description": "JSON body of the response for the `PUT /projects/{project}/version/{version}/complete` endpoint.",
+    "properties": {
+        "job_id": {
+            "type": ["integer", "string"],
+            "description": "Identifier of the job to be used in the `GET /jobs/{jobid}` endpoint, to determine the success of post-upload tasks such as indexing."
+        }
+    },
+    "required": [
+        "job_id"
+    ]
+}

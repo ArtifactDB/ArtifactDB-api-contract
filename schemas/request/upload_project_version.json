@@ -84,7 +84,7 @@
             "description": "When does this project version expire? The expiry time is computed as an interval from the indexing time. If omitted, it is expected that the project will not expire.",
             "pattern": "^in [0-9]+ (hours|days|weeks|months|years)$"
         },
-        "completes_in": {
+        "completed_by": {
             "type": "string",
             "description": "When is the project upload expected to finish? The completion time is computed as an interval from the time of the request. ArtifactDB backend implementations may use this to set a timeout on the upload.",
             "pattern": "^in [0-9]+ (hours|days|weeks|months|years)$"
