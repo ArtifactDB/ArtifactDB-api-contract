@@ -1,0 +1,48 @@
+{
+    "$id": "project_listing.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "JSON body of the response for the `GET /projects` endpoint.",
+    "properties": {
+        "count": {
+            "description": "Number of projects returned in this page of results.",
+            "type": "integer"
+        },
+        "results": {
+            "items": {
+                "properties": {
+                    "aggs": {
+                        "description": "Array of available versions for this project. Each version is represented by an object for historical reasons.",
+                        "items": {
+                            "properties": {
+                                "_extra.version": {
+                                    "description": "Name of the version.",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "_extra.version"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "project_id": {
+                        "description": "Name of the project",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "project_id",
+                    "aggs"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "results"
+    ],
+    "title": "Project listing response",
+    "type": "object"
+}
