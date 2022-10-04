@@ -12,22 +12,49 @@
             "type": "string"
         },
         "links": {
-            "description": "Keys are the relative paths of the files inside the project, while the values are path components for parameterized links corresponding to those files.",
-            "patternProperties": {
-                "^.*$": {
-                    "description": "Path component containing the parameterized link, which should be appended onto the REST API URL. A `PUT` request should be performed on the resulting URL, without any body but with all required authorization headers. A successful request will instruct the backend to create a link from the file specified in the property name to another resource in the ArtifactDB store. The response of the `PUT` may be ignored.",
-                    "type": "string"
-                }
+            "description": "Array of files for which it is possible to create a link to an existing file in the ArtifactDB instance, avoiding the need to upload and store a separate copy.",
+            "items": {
+                "properties": {
+                    "filename": {
+                        "description": "Relative path of the file in the project.",
+                        "type": "string"
+                    },
+                    "url": {
+                        "description": "Path component containing the parameterized link, which should be appended onto the REST API URL. A `PUT` request should be performed on the full URL; no body is required, but all necessary authorization headers should be added.\n\nA successful request will instruct the backend to create a link from the file specified in the property name to another resource in the ArtifactDB store. The response of the `PUT` may be ignored.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "url"
+                ],
+                "type": "object"
             },
-            "type": "object"
+            "type": "array"
         },
         "presigned_urls": {
             "description": "Property names are the relative paths of the files inside the project, while the values are the presigned URLs corresponding to those files.",
-            "patternProperties": {
-                "^.*$": {
-                    "description": "Presigned URL to use in a `PUT` request, to upload the file specified by the property name. No extra authorization headers should be attached to this request. The response of the `PUT` may be ignored.",
-                    "type": "string"
-                }
+            "items": {
+                "properties": {
+                    "filename": {
+                        "description": "Relative path of the file in the project.",
+                        "type": "string"
+                    },
+                    "md5sum": {
+                        "description": "Base64-encoded MD5 checksum of the file.",
+                        "type": "string"
+                    },
+                    "url": {
+                        "description": "A presigned URL, to be used in a `PUT` request to upload the file specified by `filename`. No authorization headers should be attached to this request. The MD5 checksum in the `md5sum` property should be set as the `Content-MD5` header. The response of the `PUT` may be ignored.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "filename",
+                    "url",
+                    "md5sum"
+                ],
+                "type": "object"
             },
             "type": "object"
         }
