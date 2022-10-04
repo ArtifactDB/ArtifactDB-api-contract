@@ -158,6 +158,10 @@ GET /projects/{project}/metadata
 
 On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/project_metadata.html).
 
+The project version metadata is paginated, so a successful response may contain a [`Link` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) pointing to the next page.
+Specifically, the next page is obtained from the link where `rel="more"`. 
+If no such header or link exists, it can be assumed that no further pages are available.
+
 On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
 
 ### Example
@@ -209,6 +213,10 @@ GET /projects/{project}/version/{version}/metadata
 ### Response 
 
 On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/project_metadata.html).
+
+The project version metadata is paginated, so a successful response may contain a [`Link` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) pointing to the next page.
+Specifically, the next page is obtained from the link where `rel="more"`. 
+If no such header or link exists, it can be assumed that no further pages are available.
 
 On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
 
