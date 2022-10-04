@@ -462,13 +462,23 @@ Yields the following 200 response:
 
 ```json
 {
-    "presigned_urls": {
-        "foo.txt": "https://gypsum-test.bfb2e522e0b245720424784fcf7c04c0.r2.cloudflarestorage.com/test-zircon-upload/test_version/foo.txt..."
-    },
-    "links": {
-        "blah.txt": "/link/dGVzdC16aXJjb24tdXBsb2FkOmJsYWgudHh0QHRlc3RfdmVyc2lvbg==/to/dGVzdC16aXJjb24tdXBsb2FkOmJsYWgudHh0QGJhc2U=",
-        "whee.txt": "/link/dGVzdC16aXJjb24tdXBsb2FkOndoZWUudHh0QHRlc3RfdmVyc2lvbg==/to/dGVzdC16aXJjb24tdXBsb2FkOndoZWUudHh0QGJhc2U="
-    },
+    "presigned_urls": [
+        {
+            "filename": "foo.txt",
+            "url": "https://gypsum-test.bfb2e522e0b245720424784fcf7c04c0.r2.cloudflarestorage.com/test-zircon-upload/test_version/foo.txt...",
+            "md5sum": "cac8766a7c6a76a67aa=="
+        }
+    ],
+    "links": [
+        {
+            "filename": "blah.txt",
+            "url": "/link/dGVzdC16aXJjb24tdXBsb2FkOmJsYWgudHh0QHRlc3RfdmVyc2lvbg==/to/dGVzdC16aXJjb24tdXBsb2FkOmJsYWgudHh0QGJhc2U="
+        },
+        {
+            "filename": "whee.txt",
+            "url": "/link/dGVzdC16aXJjb24tdXBsb2FkOndoZWUudHh0QHRlc3RfdmVyc2lvbg==/to/dGVzdC16aXJjb24tdXBsb2FkOndoZWUudHh0QGJhc2U="
+        }
+    ],
     "completion_url": "/projects/test-zircon-upload/version/test_version/complete",
     "abort_url": "/projects/test-zircon-upload/version/test_version/abort"
 }
