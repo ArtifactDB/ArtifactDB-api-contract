@@ -4,7 +4,7 @@
     "description": "JSON body of the response for the `GET /jobs/{jobid}` endpoint.",
     "properties": {
         "status": {
-            "description": "State of the post-upload job.",
+            "description": "State of the asynchronous post-upload job. Clients may poll this endpoint to check whether all tasks have completed before attempting to use the affected ArtifactDB entries.",
             "enum": [
                 "SUCCESS",
                 "FAILURE",
@@ -16,6 +16,6 @@
     "required": [
         "status"
     ],
-    "title": "Job response",
+    "title": "Post-upload job response",
     "type": "object"
 }

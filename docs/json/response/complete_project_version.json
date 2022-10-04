@@ -4,7 +4,7 @@
     "description": "JSON body of the response for the `PUT /projects/{project}/version/{version}/complete` endpoint.",
     "properties": {
         "job_id": {
-            "description": "Identifier of the job to be used in the `GET /jobs/{jobid}` endpoint, to determine the success of post-upload tasks such as indexing.",
+            "description": "Identifier of the job to be used in the `GET /jobs/{jobid}` endpoint, to determine the success of asynchronous post-upload tasks such as indexing.",
             "type": [
                 "integer",
                 "string"
