@@ -1,0 +1,11 @@
+{
+    "properties": {
+        "_extra.version": {
+            "type": "string",
+            "description": "Name of the version."
+        }
+    },
+    "required": [
+        "_extra.version"
+    ]
+}

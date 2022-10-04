@@ -245,3 +245,104 @@ Yields the following 200 response (per-file metadata omitted for brevity):
   "total": 12
 }
 ```
+
+## List project versions
+
+### Route
+
+```
+GET /projects/{project}/versions
+```
+
+`project` should be a project name, passed through the standard URL encoding.
+
+### Response 
+
+On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/project_version_listing.html).
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Example
+
+Listing project versions for `test-zircon-upload` for the test API:
+
+```sh
+curl -L https://gypsum-test.aaron-lun.workers.dev/projects/test-zircon-upload/versions
+```
+
+```json
+{
+  "project_id": "test-zircon-upload",
+  "aggs": [
+    {
+      "_extra.version": "1664829775"
+    },
+    {
+      "_extra.version": "1664840427"
+    },
+    {
+      "_extra.version": "base"
+    }
+  ],
+  "total": 8,
+  "latest": {
+    "_extra.version": "1664840427"
+  }
+}
+```
+
+## List projects
+
+### Route
+
+```
+GET /projects
+```
+
+### Response 
+
+On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/project_listing.html).
+
+The project list is paginated, so a successful response may contain a [`Link` header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Link) pointing to the next page.
+Specifically, the next page is obtained from the link where `rel="more"`. 
+If no such header or link exists, it can be assumed that no further pages are available.
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Example
+
+Listing all projects for the test API:
+
+```sh
+curl -L https://gypsum-test.aaron-lun.workers.dev/projects
+```
+
+```json
+{
+  "results": [
+    {
+      "project_id": "test-zircon-link",
+      "aggs": [
+        {
+          "_extra.version": "base"
+        }
+      ]
+    },
+    {
+      "project_id": "test-zircon-upload",
+      "aggs": [
+        {
+          "_extra.version": "1664829775"
+        },
+        {
+          "_extra.version": "1664840427"
+        },
+        {
+          "_extra.version": "base"
+        }
+      ]
+    }
+  ],
+  "count": 2
+}
+```
