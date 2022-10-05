@@ -1,0 +1,8 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "permissions.json",
+    "type": "object",
+    "title": "Permissions request",
+    "description": "JSON body of the request for the `PUT /projects/{project}/permissions` endpoint. If any property is missing, it is assumed to be unchanged from the existing value of that property in the ArtifactDB permissions. See the `GET /projects/{project}/permissions` endpoint for the existing permissions.",
+    "allOf": [ { "$ref": "../_common/raw_permissions.json" } ]
+}

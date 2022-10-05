@@ -144,6 +144,39 @@ Yields the following 200 response:
 }
 ```
 
+## Set project permissions
+
+### Route
+
+```
+PUT /projects/{project}/permissions
+```
+
+`project` should be a project name, passed through the standard URL encoding.
+
+### Request body 
+
+The request body should be JSON-encoded and follow [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/request/permissions.html).
+
+### Response 
+
+On success, a 202 status code is returned with no body.
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Example
+
+Setting the permissions for `test-zircon-upload` for the test API:
+
+```sh
+curl -X PUT https://gypsum-test.aaron-lun.workers.dev/projects/test-zircon-upload/permissions \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ${GITHUB_PAT}" \
+    -d '{ "read_access": "public" }'
+```
+
+Yields a 202 response.
+
 ## Get project metadata
 
 ### Route
@@ -502,7 +535,7 @@ The request body should be JSON-encoded and follow [this schema](https://Artifac
 
 ### Response 
 
-On success, a 200 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/complete_project_version.html).
+On success, a 202 status code is returned with a JSON body that follows [this schema](https://ArtifactDB.github.io/ArtifactDB-api-contract/html/response/complete_project_version.html).
 
 On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
 
@@ -517,13 +550,43 @@ curl -X PUT https://gypsum-test.aaron-lun.workers.dev/projects/test-zircon-uploa
     -d '{ "read_access": "public", "owners": [ "LTLA" ], "viewers": [ "ArtifactDB-bot" ] }'
 ```
 
-Yields the following 200 response:
+Yields the following 202 response:
 
 ```json
 {
     "job_id": 196
 }
 ```
+
+## Abort version upload
+
+### Route
+
+```
+PUT /projects/{project}/version/{version}/abort
+```
+
+`project` should be a project name, passed through the standard URL encoding.
+
+`version` should be a project version, passed through the standard URL encoding.
+
+### Response 
+
+On success, a 202 status code is returned with no body.
+
+On error, a JSON body is returned that follows [this schema](https://ArtifactDB.githubio/ArtifactDB-api-contract/html/response/error.html).
+
+### Example
+
+Aborting an upload to `test_version` of the project `test-zircon-upload` in the test API:
+
+```sh
+curl -X PUT https://gypsum-test.aaron-lun.workers.dev/projects/test-zircon-upload/version/test_version/abort \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer ${GITHUB_PAT}"
+```
+
+Yields a 202 response (provided that no request was made to the corresponding completion endpoint).
 
 ## Get post-upload job status
 
