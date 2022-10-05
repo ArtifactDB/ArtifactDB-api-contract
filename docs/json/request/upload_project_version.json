@@ -19,7 +19,31 @@
                 "anyOf": [
                     {
                         "description": "Relative path to the file inside the project.",
-                        "type": "string"
+                        "properties": {
+                            "check": {
+                                "const": "simple",
+                                "description": "Simple upload with no deduplication, but with MD5 checksum checks for integerity.",
+                                "type": "string"
+                            },
+                            "filename": {
+                                "description": "Relative path to the file inside the project.",
+                                "type": "string"
+                            },
+                            "value": {
+                                "description": "Parameters for checking the MD5 checksum.",
+                                "properties": {
+                                    "md5sum": {
+                                        "description": "MD5 checksum of the current version of the file to be uploaded.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "md5sum"
+                                ],
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
                     },
                     {
                         "properties": {
