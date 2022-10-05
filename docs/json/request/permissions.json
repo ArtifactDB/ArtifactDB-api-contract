@@ -1,0 +1,48 @@
+{
+    "$id": "permissions.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "JSON body of the request for the `PUT /projects/{project}/permissions` endpoint. If any property is missing, it is assumed to be unchanged from the existing value of that property in the ArtifactDB permissions. See the `GET /projects/{project}/permissions` endpoint for the existing permissions.",
+    "properties": {
+        "owners": {
+            "description": "Array of users who own the resource, i.e., can change permissions or create new versions.",
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "read_access": {
+            "description": "Type of read access.",
+            "enum": [
+                "none",
+                "viewers",
+                "public"
+            ],
+            "type": "string"
+        },
+        "scope": {
+            "description": "Scope of the permissions",
+            "enum": [
+                "project",
+                "version"
+            ],
+            "type": "string"
+        },
+        "viewers": {
+            "description": "Array of users who are allowed to view the resource.",
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "write_access": {
+            "description": "Type of write access.",
+            "enum": [
+                "none",
+                "owners"
+            ],
+            "type": "string"
+        }
+    },
+    "title": "Permissions request",
+    "type": "object"
+}
