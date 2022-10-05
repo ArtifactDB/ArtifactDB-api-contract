@@ -1,11 +1,11 @@
 # ArtifactDB API contract
 
-🚧🚨🚧 Under construction! 🚧🚨🚧
+🚧🚨🚧 **Under construction!** 🚧🚨🚧
 
 ## Overview
 
 This document describes the API contract for ArtifactDB instances.
-By providing an explicit listing of endpoints, developers can create clients (e.g., [**zircon**](https://github.com/ArtifactDB/zircon-R)) that will interoperate with a range of ArtifactDB APIs.
+By providing an explicit listing of endpoints, developers can create clients (e.g., [**zircon**](https://github.com/ArtifactDB/zircon-R)) that will interoperate with a range of ArtifactDB deployments.
 
 ## Get file metadata
 
