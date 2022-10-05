@@ -43,6 +43,11 @@
                                 "type": "object"
                             }
                         },
+                        "required": [
+                            "check",
+                            "filename",
+                            "value"
+                        ],
                         "type": "object"
                     },
                     {
