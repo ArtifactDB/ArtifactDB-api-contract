@@ -462,7 +462,13 @@ We'll consider the following request body:
 ```json
 { 
     "filenames": [ 
-        "foo.txt", 
+        {
+            "check": "simple",
+            "filename": "foo.txt", 
+            "value": {
+                "md5sum": "6c08167ee9978b69d46616460c4fd5a9"
+            }
+        },
         { 
             "check": "link", 
             "filename": "blah.txt",
