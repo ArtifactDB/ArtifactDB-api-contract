@@ -6,7 +6,7 @@
     "description": "JSON body of the response for the `POST /projects/{project}/version/{version}/upload` endpoint.",
     "properties": {
         "presigned_urls": {
-            "type": "object",
+            "type": "array",
             "description": "Property names are the relative paths of the files inside the project, while the values are the presigned URLs corresponding to those files.",
             "items": {
                 "type": "object",
