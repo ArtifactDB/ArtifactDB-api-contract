@@ -1,0 +1,139 @@
+{
+    "$id": "project_metadata.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "JSON body of the response for the `/projects/{project}/metadata` and `/projects/{project}/version/{version}/metadata` endpoints.",
+    "properties": {
+        "count": {
+            "description": "Number of objects in `results` returned in this response. This may be less than `total` if pagination is present.",
+            "type": "integer"
+        },
+        "next": {
+            "description": "Endpoint to use to obtain the next page of results. Should be absent on the final page of results.",
+            "type": "string"
+        },
+        "results": {
+            "description": "Metadata for each file in the project or a version thereof.",
+            "items": {
+                "properties": {
+                    "$schema": {
+                        "description": "Schema for the file's metadata.",
+                        "type": "string"
+                    },
+                    "_extra": {
+                        "description": "Extra information recorded by the ArtifactDB API.",
+                        "properties": {
+                            "$schema": {
+                                "description": "Schema for the file's metadata.",
+                                "type": "string"
+                            },
+                            "id": {
+                                "description": "The full ArtifactDB identifier for this file.",
+                                "type": "string"
+                            },
+                            "meta_indexed": {
+                                "description": "Timestamp for successful indexing.",
+                                "format": "date-time",
+                                "type": "string"
+                            },
+                            "meta_uploaded": {
+                                "description": "Timestamp for completed upload.",
+                                "format": "date-time",
+                                "type": "string"
+                            },
+                            "permissions": {
+                                "properties": {
+                                    "owners": {
+                                        "description": "Array of users who own the resource, i.e., can change permissions or create new versions.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "read_access": {
+                                        "description": "Type of read access.",
+                                        "enum": [
+                                            "none",
+                                            "viewers",
+                                            "public"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "scope": {
+                                        "description": "Scope of the permissions",
+                                        "enum": [
+                                            "project",
+                                            "version"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "viewers": {
+                                        "description": "Array of users who are allowed to view the resource.",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "write_access": {
+                                        "description": "Type of write access.",
+                                        "enum": [
+                                            "none",
+                                            "owners"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "viewers",
+                                    "readers",
+                                    "read_access",
+                                    "write_access",
+                                    "scope"
+                                ],
+                                "type": "object"
+                            },
+                            "project_id": {
+                                "description": "The name of the project containing the file.",
+                                "type": "string"
+                            },
+                            "version": {
+                                "description": "The version of the project containing the file.",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "$schema",
+                            "id",
+                            "project_id",
+                            "version",
+                            "meta_indexed",
+                            "meta_uploaded",
+                            "permissions"
+                        ],
+                        "type": "object"
+                    },
+                    "path": {
+                        "description": "Relative path from the root of the project.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "path",
+                    "_extra"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "total": {
+            "description": "Total number of files in this project or its version.",
+            "type": "integer"
+        }
+    },
+    "required": [
+        "results",
+        "count",
+        "total"
+    ],
+    "title": "Project metadata response",
+    "type": "object"
+}

@@ -1,0 +1,133 @@
+{
+    "$id": "upload_project_version.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "JSON body of the request for the `POST /projects/{project}/version/{version}/upload` endpoint.",
+    "properties": {
+        "completed_by": {
+            "description": "When is the project upload expected to finish? The completion time is computed as an interval from the time of the request. ArtifactDB backend implementations may use this to set a timeout on the upload.",
+            "pattern": "^in [0-9]+ (hours|days|weeks|months|years)$",
+            "type": "string"
+        },
+        "expires_in": {
+            "description": "When does this project version expire? The expiry time is computed as an interval from the indexing time. If omitted, it is expected that the project will not expire.",
+            "pattern": "^in [0-9]+ (hours|days|weeks|months|years)$",
+            "type": "string"
+        },
+        "filenames": {
+            "description": "Files to be uploaded to this version of the project.",
+            "items": {
+                "anyOf": [
+                    {
+                        "description": "Relative path to the file inside the project.",
+                        "properties": {
+                            "check": {
+                                "const": "simple",
+                                "description": "Simple upload with no deduplication, but with MD5 checksum checks for integerity.",
+                                "type": "string"
+                            },
+                            "filename": {
+                                "description": "Relative path to the file inside the project.",
+                                "type": "string"
+                            },
+                            "value": {
+                                "description": "Parameters for checking the MD5 checksum.",
+                                "properties": {
+                                    "md5sum": {
+                                        "description": "MD5 checksum of the current version of the file to be uploaded.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "md5sum"
+                                ],
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "check",
+                            "filename",
+                            "value"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "check": {
+                                "const": "md5",
+                                "description": "Deduplication should be performed based on detection of an identical MD5 checksum in a previous version of the file.",
+                                "type": "string"
+                            },
+                            "filename": {
+                                "description": "Relative path to the file inside the project.",
+                                "type": "string"
+                            },
+                            "value": {
+                                "description": "Parameters for checking the MD5 checksum.",
+                                "properties": {
+                                    "field": {
+                                        "description": "Field of the metadata that contains the MD5 checksum of the previous version of the file.",
+                                        "type": "string"
+                                    },
+                                    "md5sum": {
+                                        "description": "MD5 checksum of the current version of the file to be uploaded.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "md5sum",
+                                    "field"
+                                ],
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "check",
+                            "filename",
+                            "value"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "check": {
+                                "const": "link",
+                                "description": "Deduplication should be performed based on an explicit link to another ArtifactDB resource.",
+                                "type": "string"
+                            },
+                            "filename": {
+                                "description": "Relative path to the file inside the project.",
+                                "type": "string"
+                            },
+                            "value": {
+                                "description": "Parameters for linking.",
+                                "properties": {
+                                    "artifactdb_id": {
+                                        "description": "An ArtifactDB identifier to be linked from the file in `filename`.",
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "md5sum",
+                                    "field"
+                                ],
+                                "type": "object"
+                            }
+                        },
+                        "required": [
+                            "check",
+                            "filename",
+                            "value"
+                        ],
+                        "type": "object"
+                    }
+                ]
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "filenames"
+    ],
+    "title": "Upload project version request",
+    "type": "object"
+}

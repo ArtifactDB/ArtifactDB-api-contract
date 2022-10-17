@@ -1,0 +1,21 @@
+{
+    "$id": "jobs.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "JSON body of the response for the `GET /jobs/{jobid}` endpoint.",
+    "properties": {
+        "status": {
+            "description": "State of the asynchronous post-upload job. Clients may poll this endpoint to check whether all tasks have completed before attempting to use the affected ArtifactDB entries.",
+            "enum": [
+                "SUCCESS",
+                "FAILURE",
+                "PENDING"
+            ],
+            "type": "string"
+        }
+    },
+    "required": [
+        "status"
+    ],
+    "title": "Post-upload job response",
+    "type": "object"
+}

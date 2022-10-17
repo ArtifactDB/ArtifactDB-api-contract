@@ -1,0 +1,41 @@
+{
+    "$id": "project_version_listing.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "JSON body of the response for the `GET /projects/{project}/versions` endpoint.",
+    "properties": {
+        "_latest": {
+            "properties": {
+                "_extra.version": {
+                    "description": "Name of the version.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "_extra.version"
+            ],
+            "type": "object"
+        },
+        "aggs": {
+            "description": "Array of available versions for this project. Each version is represented by an object for historical reasons.",
+            "items": {
+                "properties": {
+                    "_extra.version": {
+                        "description": "Name of the version.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "_extra.version"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "aggs",
+        "_latest"
+    ],
+    "title": "Project version listing response",
+    "type": "object"
+}
