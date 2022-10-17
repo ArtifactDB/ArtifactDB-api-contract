@@ -11,11 +11,11 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build schemas
-      uses: ArtifactDB/build-schemas-action@v0.1.0
+      uses: ArtifactDB/build-schemas-action@master
       with:
-        raw: schemas
-        docs: public
-        title: 'ArtifactDB API schemas'
+        path_raw: schemas
+        path_docs: public
+        docs_title: 'ArtifactDB API schemas'
 
     - name: Publish to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.3
