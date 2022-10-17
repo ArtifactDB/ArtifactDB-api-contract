@@ -94,8 +94,7 @@
                                     }
                                 },
                                 "required": [
-                                    "md5sum",
-                                    "field"
+                                    "artifactdb_id"
                                 ]
                             }
                         },
